@@ -1,0 +1,28 @@
+{
+  "name": "thehomefashion-backend",
+  "version": "1.0.0",
+  "description": "E-Commerce-Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krishnakantsalkar/TheHomeFashion-Backend.git"
+  },
+  "author": "Krishnakant Salkar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/krishnakantsalkar/TheHomeFashion-Backend/issues"
+  },
+  "homepage": "https://github.com/krishnakantsalkar/TheHomeFashion-Backend#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "config": "^3.3.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.6",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.2"
+  }
+}
