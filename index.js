@@ -32,6 +32,14 @@ if (!config.get("SecretKey")) {
   process.exit(1);
 }
 
+// Project
+
+let userReg = require("./Routes/userRegistration");
+
+//Allowed  Routes
+
+app.use("/api/newUsers/", userReg);
+
 // Mongo DB connection
 
 mongoose
