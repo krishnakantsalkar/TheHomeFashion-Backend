@@ -35,10 +35,12 @@ if (!config.get("SecretKey")) {
 // Project
 
 let userReg = require("./Routes/userRegistration");
+let userLog = require("./Routes/userLogin");
 
 //Allowed  Routes
 
 app.use("/api/newUsers/", userReg);
+app.use("/api/newUsers/", userLog);
 
 // Mongo DB connection
 
