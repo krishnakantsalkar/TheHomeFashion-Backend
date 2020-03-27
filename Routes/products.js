@@ -91,3 +91,5 @@ function ValidationError(error) {
   });
   return Schema.validate();
 }
+
+module.exports = Router;
