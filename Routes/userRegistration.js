@@ -104,7 +104,15 @@ Router.put("/updateUsers/:id", async (req, res) => {
   if (!updateUsersById) {
     return res.status(404).send({ message: "User not found!" });
   }
-  res.send(updateUsersById);
+  let { error } = ValidationError(req.body);
+  if (error) {
+    return res.status(403).send(error.details[0].message);
+  }
+  // add data to be updated below
+  //
+  //
+  let data = await updateUsersById.save();
+  res.send({ message: " user updated successfully", data: data });
 });
 
 // Delete users by id

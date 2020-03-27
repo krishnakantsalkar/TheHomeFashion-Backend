@@ -1,6 +1,7 @@
 let mongoose = require("mongoose");
 
 let productsSChemaData = new mongoose.Schema({
+  id: { type: Number },
   name: { type: String, max: 20 },
   description: { type: String },
   quantity: { type: Number },
