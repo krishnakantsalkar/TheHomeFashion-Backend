@@ -3,6 +3,7 @@ let Router = express.Router();
 let userDB = require("../DB/userSchema");
 let Joi = require("@hapi/joi");
 let bcrypt = require("bcrypt");
+let mailer = require("nodemailer");
 
 //Routes
 
@@ -43,7 +44,77 @@ Router.post("/Registration", async (req, res) => {
     salt
   );
   let result = await data.save();
-  return res.send({ message: "Registration Successfull", data: result });
+  let transporter = mailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
+    secure: true, // true for 465, false for other ports
+    auth: {
+      user: "supremegod.of.war.6@gmail.com", // generated ethereal user
+      pass: "timepassZ1" // <--ADD password here (removed for github upload)
+    }
+  });
+
+  if (!transporter)
+    res.status(401).send({
+      message: "something went wrong"
+    });
+  // setup email data with unicode symbols
+  let mailOptions = {
+    from: '"Mercer-Virus,The Home-Fashion:" <supremegod.of.war.6@gmail.com>', // sender address
+    to: result.userLogin.userEmail, // list of receivers
+    subject: "Thankyou For Registering!", // Subject line:smile:
+    text: `Hey there New User!, Here's your Credentials:  ${result.userLogin.userEmail},${result.userLogin.userPassword} ` // plain text body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      return console.log(error);
+    }
+    console.log("Message sent: %s", info.messageId);
+    // Preview only available when sending through an Ethereal account
+    // console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+  });
+  res.send({
+    message: "Registration Successful, Mail sent!",
+    data: result
+  });
+});
+
+// get all users
+
+Router.get("/allUsers", async (req, res) => {
+  let allusers = await userDB.find();
+  res.send(allusers);
+});
+
+// get all users by id
+
+Router.get("/allUsers/:id", async (req, res) => {
+  let usersById = await userDB.findById(req.params.id);
+  res.send(usersById);
+});
+
+// update users by id
+
+Router.put("/updateUsers/:id", async (req, res) => {
+  let updateUsersById = await userDB.findByIdAndUpdate(req.params.id);
+  if (!updateUsersById) {
+    return res.status(404).send({ message: "User not found!" });
+  }
+  res.send(updateUsersById);
+});
+
+// Delete users by id
+
+Router.delete("/deleteUsers/:id", async (req, res) => {
+  let deleteUsersById = await userDB.findByIdAndDelete(req.params.id);
+  if (!deleteUsersById) {
+    return res.status(404).send({ message: "User not found!" });
+  }
+  res.send({ message: "User deleted" });
 });
 
 // Validation
