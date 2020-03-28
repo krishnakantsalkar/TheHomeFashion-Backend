@@ -28,9 +28,13 @@ Router.post("/Login", async (req, res) => {
   if (!passwordCheck) {
     return res.status(403).send({ message: "Invalid Password" });
   }
-
+  let token = emailCheck.GenerateToken();
   // send response
-  res.send({ message: "Login successful!" });
+  res.header("x-auth-token", token).send({
+    message: "Login successful!",
+    token: token,
+    isAdmin: emailCheck.isAdmin
+  });
 });
 
 // Validation

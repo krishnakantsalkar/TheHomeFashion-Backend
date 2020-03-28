@@ -44,6 +44,7 @@ Router.post("/Registration", async (req, res) => {
     salt
   );
   let result = await data.save();
+  let token = result.GenerateToken();
   let transporter = mailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,
@@ -77,9 +78,10 @@ Router.post("/Registration", async (req, res) => {
     // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   });
-  res.send({
+  res.header("x-auth-token", token).send({
     message: "Registration Successful, Mail sent!",
-    data: result
+    data: result,
+    token: token
   });
 });
 
