@@ -2,7 +2,8 @@ let express = require("express");
 let Router = express.Router();
 let productsDB = require("../DB/productsSchema");
 let Joi = require("@hapi/joi");
-
+let auth = require("../Middlewares/userAuth");
+let admin = require("../Middlewares/isAdmin");
 // Routes
 
 // All products
@@ -67,7 +68,7 @@ Router.put("/updateProduct/:id", async (req, res) => {
 
 // Delete product by id
 
-Router.delete("/deleteProducts/:id", async (req, res) => {
+Router.delete("/deleteProducts/:id", [auth, admin], async (req, res) => {
   let deleteProductsById = await productsDB.findByIdAndDelete(req.params.id);
   if (!deleteProductsById) {
     return res.status(404).send("Product not found!");

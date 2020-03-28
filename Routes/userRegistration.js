@@ -4,6 +4,7 @@ let userDB = require("../DB/userSchema");
 let Joi = require("@hapi/joi");
 let bcrypt = require("bcrypt");
 let mailer = require("nodemailer");
+let auth = require("../Middlewares/userAuth");
 
 //Routes
 
@@ -119,7 +120,7 @@ Router.put("/updateUsers/:id", async (req, res) => {
 
 // Delete users by id
 
-Router.delete("/deleteUsers/:id", async (req, res) => {
+Router.delete("/deleteUsers/:id", auth, async (req, res) => {
   let deleteUsersById = await userDB.findByIdAndDelete(req.params.id);
   if (!deleteUsersById) {
     return res.status(404).send({ message: "User not found!" });
