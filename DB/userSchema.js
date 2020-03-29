@@ -7,7 +7,7 @@ let userSchemaData = new mongoose.Schema({
   lastname: { type: String, required: true, min: 2, max: 20 },
   age: { type: Number, min: 13 },
   gender: { type: Boolean },
-
+  address: { type: String },
   userLogin: {
     userEmail: { type: String },
     userPassword: { type: String }

@@ -30,6 +30,7 @@ Router.post("/Registration", async (req, res) => {
     lastname: req.body.lastname,
     age: req.body.age,
     gender: req.body.gender,
+    address: req.body.address,
     userLogin: {
       userEmail: req.body.userLogin.userEmail,
       userPassword: req.body.userLogin.userPassword
@@ -143,6 +144,7 @@ function ValidationError(error) {
       .required()
       .min(13),
     gender: Joi.boolean().required(),
+    address: Joi.string().required(),
     userLogin: {
       userEmail: Joi.string()
         .required()
