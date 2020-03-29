@@ -40,7 +40,7 @@ Router.post("/forgotPassword", async (req, res) => {
   let mailOptions = {
     from: '"Mercer-Virus,The Home-Fashion:" <supremegod.of.war.6@gmail.com>', // sender address
     to: checkEmail.userLogin.userEmail, // list of receivers
-    subject: "Thankyou For Registering!", // Subject line:smile:
+    subject: "Password change request!", // Subject line:smile:
     text: `Your password recovery link is:  http://localhost:4500/ResetPassword/${token}` // plain text body
   };
 
