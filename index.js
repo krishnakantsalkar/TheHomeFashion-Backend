@@ -39,6 +39,7 @@ let userLog = require("./Routes/userLogin");
 let products = require("./Routes/products");
 let forgot = require("./Routes/forgotPassword");
 let reset = require("./Routes/resetPassword");
+let fileStorage = require("./Routes/fileStorage");
 
 //Allowed  Routes
 
@@ -47,6 +48,8 @@ app.use("/api/newUsers/", userLog);
 app.use("/api/products/", products);
 app.use("/api/password/", forgot);
 app.use("/api/password/", reset);
+app.use("/uploads", express.static("./uploads"));
+app.use("/api/fileUpload/", fileStorage);
 
 // Mongo DB connection
 
